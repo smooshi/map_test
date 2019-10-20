@@ -15,6 +15,7 @@ from bokeh.models import GeoJSONDataSource, Slider, HoverTool
 from bokeh.palettes import brewer
 from bokeh.layouts import widgetbox, row, column
 from bokeh.models.widgets import CheckboxGroup
+from bokeh.embed import components 
 
 # =============================================================================
 # shapefile = 'D:\World_Seas_IHO_v3\World_Seas_IHO_v3.shp'
@@ -41,28 +42,33 @@ from bokeh.models.widgets import CheckboxGroup
 app = Flask(__name__)
 
 def read_data():
-    shapefile = 'D:\World_Seas_IHO_v3\World_Seas_IHO_v3.shp'
+    shapefile = 'iho\iho.shp'
     oceans = gpd.read_file(shapefile)
     #MERGE DATA:
     #merged <- join datafile
     
     merged_json = json.loads(oceans.to_json())
     json_data = json.dumps(merged_json)
+    print("Data read")
     return(json_data)
 
 def make_plot(d):
-    p = figure(title="World Oceans")
+    TOOLTIPS=[("index", "$index"),("name", "$name")]
+    p = figure(title="World Oceans", tools='pan, hover, wheel_zoom, reset')
     geosource = GeoJSONDataSource(geojson = d)
     p.patches('xs','ys', source = geosource)
+    print("Plot made")
     return p
 
 @app.route('/')
 def homepage():
+    print("?")
     #Read data
     d = read_data()
     p = make_plot(d)
     script, div = components(p)
-    return render_template('index.html', script=script, div=div)
+    #print(script)
+    return render_template('home.html', script=script, div=div)
 
 if __name__ == '__main__':
-    app.run(debug=True) #Set to false when deploying
+    app.run(debug=False) #Set to false when deploying
