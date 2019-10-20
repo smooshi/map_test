@@ -42,7 +42,7 @@ from bokeh.embed import components
 app = Flask(__name__)
 
 def read_data():
-    shapefile = 'iho\iho.shp'
+    shapefile = 'iho/iho.shp'
     oceans = gpd.read_file(shapefile)
     #MERGE DATA:
     #merged <- join datafile
