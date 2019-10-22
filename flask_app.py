@@ -4,7 +4,7 @@ Created on Sun Oct 20 14:38:27 2019
 
 @author: milailija
 """
-
+import numpy as np
 import geopandas as gpd
 import pandas as pd
 import json
@@ -102,6 +102,16 @@ def calculate_risk() :
             rain = soup.find_all(class_ = 'displayer')[2].get_text()
         except :
             rain = 0
+        
+        try:
+            temp_max = float(temp_max.replace(u'\N{DEGREE SIGN}C', ''))
+        except:
+            temp_max = np.nan
+            
+        try:
+            temp_min = float(temp_min.replace(u'\N{DEGREE SIGN}C', ''))
+        except:
+            temp_min = np.nan
 
         if (temp_min > 10) and (temp_max > 15) :
             risk = 5.8*temp_max + rain*2
@@ -115,7 +125,7 @@ def calculate_risk() :
             color="blue"
         polys1 = geopandas.GeoSeries(Polygon(station_cordinates[item]))
         res_intersection = geopandas.overlay(polys1, ocean, how='intersection')
-        res[station_cordinates[item]]=color
+        res[str(station_cordinates[item])]=color
         results.append(res)
         res = {}
         item = item + 1
