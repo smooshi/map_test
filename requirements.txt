@@ -1,4 +1,4 @@
-libspatialindex==1.8.5
+libspatialindex==1.8.0
 rtree==0.8.3
 Flask==1.1.1
 pandas==0.24.2
