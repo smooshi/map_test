@@ -36,7 +36,7 @@ def read_data():
 def make_plot(d):
     risk = calculate_risk()
     TOOLTIPS=[("index", "$index"),("name", "$name")]
-    p = figure(title="World Oceans", tools='pan, hover, wheel_zoom, reset')
+    p = figure(title="Baltic Sea", tools='pan, hover, wheel_zoom, reset')
     geosource = GeoJSONDataSource(geojson = d)
     p.patches('xs','ys', source = geosource)
     print("Plot made")
