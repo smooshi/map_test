@@ -61,7 +61,7 @@ def calculate_risk() :
     weather_stations = ['https://www.infoclimat.fr/observations-meteo/temps-reel/kemi/02864.html','https://www.infoclimat.fr/observations-meteo/temps-reel/helsinki-malmi/02975.html','https://www.infoclimat.fr/observations-meteo/temps-reel/bagaskar/02984.html','https://www.infoclimat.fr/observations-meteo/temps-reel/market/02993.html','https://www.infoclimat.fr/observations-meteo/temps-reel/nyhamn/02980.html','https://www.infoclimat.fr/observations-meteo/temps-reel/oulu/02875.html','https://www.infoclimat.fr/observations-meteo/temps-reel/pori/02952.html']
     #list of zone coordinates
     station_coordinates = gpd.GeoSeries([Polygon([(66,24.58),(65.355,24.58),(65.355,25.37,64.63,25.37)]),Polygon([(64.63,23.6),(64.025,23.6),(64.025,23.15),(63.575,23.15)]),Polygon([(63.575,21.07),(63.24,21.07),(63.24,21.77,62.26,21.77)]),Polygon([(62.26,21.8),(50,21.8),(60.13,19),(60.13,19.935)]),Polygon([(59.97,19.935),(59.97,21.12),(60.52,21.12),(60.52,22.61)]),Polygon([(59.77,22.61),(59.77,23.485),(59.93,23.485),(59.93,24.535)]),Polygon([(60.25,24.535),(60.25,26.01),(60.37,26.01),(60.37,27)])])
-    df1 = ocean=gpd.GeoDataFrame({'geometry': results})
+    df1 = gpd.GeoDataFrame({'geometry': station_coordinates})
     results = [] #to put the zones coordinates
     item = 0
     res = {}
