@@ -123,8 +123,8 @@ def calculate_risk() :
                 color = "red" #in more than 95%...
         else :
             color="blue"
-        polys1 = geopandas.GeoSeries(Polygon(station_cordinates[item]))
-        res_intersection = geopandas.overlay(polys1, ocean, how='intersection')
+        polys1 = gpd.GeoSeries(Polygon(station_cordinates[item]))
+        res_intersection = gpd.overlay(polys1, ocean, how='intersection')
         res[str(station_cordinates[item])]=color
         results.append(res)
         res = {}
