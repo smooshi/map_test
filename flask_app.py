@@ -107,7 +107,7 @@ def calculate_risk() :
         risk = 0
         color = "blue"
 
-    return oceans
+    return ocean
 
 if __name__ == '__main__':
     app.run(debug=False) #Set to false when deploying
