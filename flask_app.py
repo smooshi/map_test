@@ -20,29 +20,6 @@ from bokeh.embed import components
 import requests
 from bs4 import BeautifulSoup
 import re
-
-# =============================================================================
-# shapefile = 'D:\World_Seas_IHO_v3\World_Seas_IHO_v3.shp'
-# oceans = gpd.read_file(shapefile)
-# #oceans.plot()
-# 
-# p = figure(title="World Oceans")
-# 
-# #merged <- join datafile
-# merged_json = json.loads(oceans.to_json())
-# json_data = json.dumps(merged_json)
-# 
-# #Input GeoJSON source that contains features for plotting.
-# # =============================================================================
-# geosource = GeoJSONDataSource(geojson = json_data)
-# 
-# p.patches('xs','ys', source = geosource)
-# =============================================================================
-
-#show(p)
-
-#save(obj=p, filename="test_map.html")
-# 
 app = Flask(__name__)
 
 def read_data():
