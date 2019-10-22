@@ -66,6 +66,7 @@ def calculate_risk() :
     item = 0
     res = {}
     ocean = gpd.read_file(shapefile)
+    df2 = gpd.GeoDataFrame({'geometry': station_coordinates})
     for i in weather_stations :
         r = requests.get(i)
         try :
@@ -100,7 +101,7 @@ def calculate_risk() :
                 color="blue"
         except :
             color = "blue"
-        res_intersection = gpd.overlay(df1, ocean, how='intersection')
+        res_intersection = gpd.overlay(df1, df2, how='intersection')
         results.append(res_intersection)
         ocean=gpd.GeoDataFrame({'geometry': results})
         item = item + 1
