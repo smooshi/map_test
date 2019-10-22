@@ -74,7 +74,11 @@ def homepage():
     #print(script)
     return render_template('home.html', script=script, div=div)
 
+from shapely.geometry import Polygon
+
 def calculate_risk() :
+    shapefile = 'iho/iho.shp'
+    oceans = gpd.read_file(shapefile)
     #list of webpages of the weather stations
     weather_stations = ['https://www.infoclimat.fr/observations-meteo/temps-reel/kemi/02864.html','https://www.infoclimat.fr/observations-meteo/temps-reel/helsinki-malmi/02975.html','https://www.infoclimat.fr/observations-meteo/temps-reel/bagaskar/02984.html','https://www.infoclimat.fr/observations-meteo/temps-reel/market/02993.html','https://www.infoclimat.fr/observations-meteo/temps-reel/nyhamn/02980.html','https://www.infoclimat.fr/observations-meteo/temps-reel/oulu/02875.html','https://www.infoclimat.fr/observations-meteo/temps-reel/pori/02952.html','https://www.infoclimat.fr/observations-meteo/temps-reel/rankki/02976.html','https://www.infoclimat.fr/observations-meteo/temps-reel/russaro/02982.html','https://www.infoclimat.fr/observations-meteo/temps-reel/turku/02972.html','https://www.infoclimat.fr/observations-meteo/temps-reel/ulkokalla/02907.html','https://www.infoclimat.fr/observations-meteo/temps-reel/uto/02981.html','https://www.infoclimat.fr/observations-meteo/temps-reel/vaasa/02911.html','https://www.infoclimat.fr/observations-meteo/temps-reel/valassaaret/02910.html']
     #list of zone coordinates
@@ -82,6 +86,7 @@ def calculate_risk() :
     results = [] #to put the zones coordinates and color as dictionaries
     item = 0
     res = {}
+    ocean = gpd.read_file(shapefile)
     for i in weather_stations :
         r = requests.get(i)
         soup = BeautifulSoup(r.text,'html.parser')
@@ -107,11 +112,16 @@ def calculate_risk() :
                 color = "red" #in more than 95%...
         else :
             color="blue"
+        polys1 = geopandas.GeoSeries(Polygon(station_cordinates[item]))
+        res_intersection = geopandas.overlay(polys1, ocean, how='intersection')
         res[station_cordinates[item]]=color
         results.append(res)
         res = {}
         item = item + 1
 
-    return results
+    s = requests.session()
+    s.config['keep_alive'] = False
+
+    return oceans
 if __name__ == '__main__':
     app.run(debug=False) #Set to false when deploying
