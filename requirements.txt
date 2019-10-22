@@ -7,3 +7,4 @@ gunicorn==19.7.1
 beautifulsoup4==4.4.0
 numpy==1.16.4
 regex==2019.08.19
+shapely==1.6.4
