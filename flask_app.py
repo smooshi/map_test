@@ -57,6 +57,7 @@ def read_data():
     return(json_data)
 
 def make_plot(d):
+    risk = calculate_risk()
     TOOLTIPS=[("index", "$index"),("name", "$name")]
     p = figure(title="World Oceans", tools='pan, hover, wheel_zoom, reset')
     geosource = GeoJSONDataSource(geojson = d)
