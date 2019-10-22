@@ -8,3 +8,4 @@ beautifulsoup4==4.4.0
 numpy==1.16.4
 regex==2019.08.19
 shapely==1.6.4
+rtree==0.8.3
